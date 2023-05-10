@@ -27,6 +27,6 @@ t.daemon = True
 t.start()
 try:
     while True:
-        pass
+        input('')
 except:
     exit('LOGXJ: Exit')
