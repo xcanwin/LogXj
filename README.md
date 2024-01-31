@@ -49,3 +49,7 @@ ${jndi:ldap://LOGXJ_SERVER:4444/\nFound Log4j vuln!\nDate\t:${date:yyyy-MM-dd HH
 
 - 若用本项目的方式无法发现漏洞，但是用dnslog的方式能发现漏洞，则可能是因为```存在log4j漏洞的系统```与```LogXj安全服务端```网络不通，而```存在log4j漏洞的系统```与DNS服务器正好因dns解析而网络相通。
 - 建议把```LogXj安全服务端```部署在一台所有内网服务器都通的服务器上。
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=xcanwin/LogXj&type=Date)](https://star-history.com/#xcanwin/LogXj)
